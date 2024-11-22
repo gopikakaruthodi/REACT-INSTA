@@ -1,10 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import email_icon from './email.png'
 import password_icon from './password.png'
 import './Signin.scss'
+import axios from 'axios'
 
 const Signin = () => {
+  const[loginData,setLogin]=useState({
+    email:"",password:""
+  })
+  
+  const handleChange=(e)=>{
+    // console.log(e.target.name);
+    // console.log(e.target.value);
+    setLogin((pre)=>({...pre,[e.target.name]:e.target.value}))
+  }
+  
+  const handleSubmit=async(e)=>{
+    e.preventDefault()
+
+    const res=await axios.post("http://localhost:3001/api/signin",loginData)
+    console.log(res);
+    if(res.status==200){
+      localStorage.setItem("token",res.data.token)
+      alert(res.data.msg)
+      
+    }
+    else{
+      alert("Something went wrong")
+    }
+    
+  }
+  
+
   return (
     <div className="container">
       <div className="header">
@@ -14,17 +42,17 @@ const Signin = () => {
       <div className="inputs">
         <div className="input">
           <img src={email_icon} alt="" />
-          <input type="email" id='email' name='email' />
+          <input type="email" id='email' name='email' onChange={handleChange} />
         </div>
         <div className="input">
           <img src={password_icon} alt="" />
-          <input type="password" id='password' name='password' />
+          <input type="password" id='password' name='password' onChange={handleChange} />
         </div>
 
       </div>
       <div className="submit-containers">
-        <Link to={"/email"}><div className="submit">Sign In</div></Link>
-        {/* <Link ><div className="submit">Sign In</div></Link> */}
+       <Link to={"/email"}> <div className="submit">Sign Up</div></Link>
+        <Link ><div className="submit" onClick={handleSubmit} >Sign In</div></Link>
         <Link to={'/password'}><h4> Forgot password </h4></Link>
 
       </div>

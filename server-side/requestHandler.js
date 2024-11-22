@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
 export  async  function signup(req,res){
     try {
         const{username,email,password,cpassword}=req.body
-        console.log(username);
+        // console.log(username,email,password,cpassword);
         
         if(!(username&&email&&password&&cpassword)){
             return res.status(404).send({msg:"Fields are empty"})
@@ -27,7 +27,7 @@ export  async  function signup(req,res){
             return res.status(404).send({msg:"Password not matching"})
         bcrypt.hash(password,10).then(async(hashedPassword)=>{
             await userSchema.create({username,email,password:hashedPassword}).then(async()=>{
-                res.status(200).send({msg:"Successfully Added"})
+                res.status(201).send({msg:"Successfully Added"})
             }).catch((error)=>{
                 res.status(404).send({msg:error})
             })
@@ -40,16 +40,16 @@ export  async  function signup(req,res){
 
 export async function signin(req,res) {
     try{
-        const{email,password}=req.body  
+        const{email,password}=req.body 
         if(!(email&&password))
             return res.status(404).send({msg:"Fields are empty"})  
-        const user=await userSchema.findOne({email})
-        if(!user)
+        const usr=await userSchema.findOne({email})
+        if(!usr)
             return res.status(404).send({msg:"Invalid Email"})
-        const success=await bcrypt.compare(password,user.password)
+        const success=await bcrypt.compare(password,usr.password)
         if(!success)
             return res.status(404).send({msg:"Invalid Password"})
-        const token= await sign({userId:user._id},process.env.JWT_KEY,{expiresIn:"24h"})
+        const token= await sign({userId:usr._id},process.env.JWT_KEY,{expiresIn:"24h"})
         // console.log(token);
         res.status(200).send({msg:"Successfully logged in",token})
         
@@ -118,10 +118,10 @@ export async function checkEmail(req,res) {
           });
         
          
-        // res.status(200).send({msg:"Success"})
+        res.status(200).send({msg:"Success"})
     } catch (error) {
-        // res.status(404).send({msg:error})    
         console.log(error);
+        res.status(404).send({msg:error})    
              
     }
 }

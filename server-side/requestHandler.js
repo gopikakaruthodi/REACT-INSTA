@@ -125,3 +125,16 @@ export async function checkEmail(req,res) {
              
     }
 }
+
+export async function getUser(req,res){
+    try {
+        // console.log(req.user);
+        const username=req.user.username
+        // console.log(username);
+        res.status(200).send(username)
+        
+    } catch (error) {
+        console.log(error);
+        
+    }
+}

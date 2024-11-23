@@ -8,7 +8,7 @@ import axios from 'axios'
 
 
 
-const signup = () => {
+const Signup = () => {
   const navigate=useNavigate()
   const email=localStorage.getItem("email")
   // console.log(email);
@@ -68,4 +68,4 @@ const signup = () => {
   )
 }
 
-export default signup
+export default Signup

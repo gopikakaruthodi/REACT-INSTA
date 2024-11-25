@@ -1,4 +1,5 @@
 import userSchema from './models/user.model.js'
+import profileSchema from './models/userdata.model.js'
 import bcrypt from 'bcrypt'
 import jwt from "jsonwebtoken"
 import nodemailer from "nodemailer"
@@ -27,7 +28,7 @@ export  async  function signup(req,res){
             return res.status(404).send({msg:"Password not matching"})
         bcrypt.hash(password,10).then(async(hashedPassword)=>{
             await userSchema.create({username,email,password:hashedPassword}).then(async()=>{
-                res.status(201).send({msg:"Successfully Added"})
+                res.status(201).send({msg:"Successfully Registered"})
             }).catch((error)=>{
                 res.status(404).send({msg:error})
             })
@@ -129,12 +130,65 @@ export async function checkEmail(req,res) {
 export async function getUser(req,res){
     try {
         // console.log(req.user);
-        const username=req.user.username
+        const _id=req.user.userId
+        const user=await userSchema.findOne({_id})
+        const userData=await profileSchema.findOne({userID:_id})
+        console.log(user);
+        const username=user.username
+        const profile=userData.profile
         // console.log(username);
-        res.status(200).send(username)
+        res.status(200).send({username,profile})
         
     } catch (error) {
         console.log(error);
+        res.status(404).send({msg:error})    
+
         
     }
 }
+export async function editUserData(req,res){
+    try {
+       const {...userData}=req.body
+       await profileSchema.create({...userData}).then(()=>{
+        res.status(201).send({msg:"Successfully Added"})
+       }).catch((error)=>{
+            console.log(error);
+            res.status(404).send({msg:error})    
+       })
+        
+    } catch (error) {
+        console.log(error);
+        res.status(404).send({msg:error})    
+
+        
+    }
+}
+// export async function getUserData(req,res){
+//     try {
+//     //    console.log(req.user.userId);
+//        const userID=req.user.userId
+//        const user= await profileSchema.findOne({userID})
+//        console.log(user);
+//        if(!user)
+//         return res.status(404).send({msg:"no user data available"})
+//        res.status(200).send(user)  
+//     } catch (error) {
+//         console.log(error);
+//         res.status(404).send({msg:error})    
+
+        
+//     }
+// }
+export async function deleteUserData(req,res){
+    try {
+        const _id=req.params
+        await profileSchema.deleteOne({_id}).then(()=>{
+            res.status(200).send({msg:"Successfully Deleted"})
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(404).send({msg:error}) 
+    }
+}
+
+

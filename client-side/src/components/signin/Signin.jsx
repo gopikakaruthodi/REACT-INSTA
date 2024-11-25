@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 import email_icon from './email.png'
 import password_icon from './password.png'
 import './Signin.scss'
 import axios from 'axios'
 
 const Signin = () => {
+  const navigate=useNavigate()
   const[loginData,setLogin]=useState({
     email:"",password:""
   })
@@ -24,6 +25,7 @@ const Signin = () => {
     if(res.status==200){
       localStorage.setItem("token",res.data.token)
       alert(res.data.msg)
+      navigate('/')
       
     }
     else{

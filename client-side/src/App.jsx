@@ -7,9 +7,12 @@ import Signup from './components/signup/Signup'
 import Nav from './components/Nav/Nav'
 import Home from './components/Home/Home'
 import { useState } from 'react'
+import Profile from './components/profile/Profile'
+import Edit from './components/Edit/Edit'
 
 function App() {
   const [user,setUser]=useState("")
+  const [profile,setProfile]=useState("")
   console.log(`app ${user}`);
   
 
@@ -17,13 +20,15 @@ function App() {
     <>
       <div>
         <BrowserRouter>
-        {user&&<Nav user={user} />}
+        {user&&<Nav user={user} profile={profile} />}
         <Routes>
-          <Route path='/' element={<Home setUser={setUser}/>}/>
+          <Route path='/' element={<Home setUser={setUser} setProfile={setProfile} />}/>
           <Route path='/signup' Component={Signup}/>
           <Route path='/password' Component={Password}/>
           <Route path='/email' Component={Email}/>
           <Route path='/signin' Component={Signin}/>
+          <Route path='/profile' Component={Profile}/>
+          <Route path='/edit' Component={Edit}/>
 
         </Routes>
         </BrowserRouter>

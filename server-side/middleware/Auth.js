@@ -16,9 +16,7 @@ export default async function Auth(req,res,next){
         console.log(token);
         const auth=await verify(token,process.env.JWT_KEY)
         console.log(auth);
-        const user=await userSchema.findOne({_id:auth.userId})
-        console.log(user);
-        req.user=user
+        req.user=auth
         next() 
     } catch (error) {
         return res.status(404).send({msg:"Session Timeout,Please Login Again"})

@@ -26,14 +26,14 @@ const Signup = () => {
     console.log("kk");
     const res=await axios.post("http://localhost:3001/api/signup",regData)
     console.log(res);
-    if(res.status==201){
-      localStorage.removeItem("email")
-      alert(res.data.msg)
-      navigate('/')
-    }
-    else{
-      alert("Something went wrong...!")
-    }
+    // if(res.status==201){
+    //   localStorage.removeItem("email")
+    //   alert(res.data.msg)
+    //   navigate('/signin')
+    // }
+    // else{
+    //   alert("Something went wrong...!")
+    // }
     
 
     // localStorage.setItem("email",email)

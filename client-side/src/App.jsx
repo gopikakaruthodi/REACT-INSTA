@@ -13,14 +13,14 @@ import Edit from './components/Edit/Edit'
 function App() {
   const [user,setUser]=useState("")
   const [profile,setProfile]=useState("")
-  console.log(`app ${user}`);
+  // console.log(`app ${user}`);
+  console.log(`profile ${profile}`);
   
-
   return (
     <>
       <div>
         <BrowserRouter>
-        {user&&<Nav user={user} profile={profile} />}
+        {user&&<Nav user={user} />}
         <Routes>
           <Route path='/' element={<Home setUser={setUser} setProfile={setProfile} />}/>
           <Route path='/signup' Component={Signup}/>
@@ -29,7 +29,6 @@ function App() {
           <Route path='/signin' Component={Signin}/>
           <Route path='/profile' Component={Profile}/>
           <Route path='/edit' Component={Edit}/>
-
         </Routes>
         </BrowserRouter>
       </div>

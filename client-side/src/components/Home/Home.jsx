@@ -12,11 +12,12 @@ const Home = ({setUser,setProfile}) => {
             if(token){
              try {
                 const res=await axios.get("http://localhost:3001/api/getuser",{headers:{"authorization":`Bearer ${token}`}})
-                // console.log(res.data);
+                // console.log(res.data.profile);
                 if(res.status==200){
                 setUser(res.data.username)
-                if(res.data.profile)
-                  setProfile(res.data.profile)
+                  if(res.data.profile){
+                    setProfile(res.data.profile)
+                  }
                 }
                 else if(res.status==403){
                   alert(res.status.msg)

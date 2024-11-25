@@ -66,7 +66,7 @@ export async function checkEmail(req,res) {
         const info = await transporter.sendMail({
             from: 'jazzcazz02@gmail.com', // sender address
             to: `${email}`, // list of receivers
-            subject: "OTP", // Subject line
+            subject: "Email Verification", // Subject line
             text: "Verification", // plain text body
             html: `<!DOCTYPE html>
     <html lang="en">
@@ -132,12 +132,10 @@ export async function getUser(req,res){
         // console.log(req.user);
         const _id=req.user.userId
         const user=await userSchema.findOne({_id})
-        const userData=await profileSchema.findOne({userID:_id})
+        const profile=await profileSchema.findOne({userID:_id},{_id:0,profile:1})
         console.log(user);
         const username=user.username
-        const profile=userData.profile
-        // console.log(username);
-        res.status(200).send({username,profile})
+        res.status(200).send({username:username,profile:profile})
         
     } catch (error) {
         console.log(error);
@@ -163,22 +161,21 @@ export async function editUserData(req,res){
         
     }
 }
-// export async function getUserData(req,res){
-//     try {
-//     //    console.log(req.user.userId);
-//        const userID=req.user.userId
-//        const user= await profileSchema.findOne({userID})
-//        console.log(user);
-//        if(!user)
-//         return res.status(404).send({msg:"no user data available"})
-//        res.status(200).send(user)  
-//     } catch (error) {
-//         console.log(error);
-//         res.status(404).send({msg:error})    
+export async function getUserData(req,res){
+    try {
+    //    console.log(req.user.userId);
+       const userID=req.user.userId
+       const profileData= await profileSchema.findOne({userID})
+       const userData= await userSchema.findOne({_id:userID},{username:1,email:1})
+       res.status(200).send({userData,profileData:profileData})  
+    } catch (error) {
+        console.log(error);
+        res.status(404).send({msg:error})    
 
         
-//     }
-// }
+    }
+}
+
 export async function deleteUserData(req,res){
     try {
         const _id=req.params

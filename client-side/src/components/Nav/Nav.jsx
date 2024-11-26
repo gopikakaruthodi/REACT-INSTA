@@ -3,7 +3,7 @@ import './Nav.css'
 import person_icon from './person.png'
 import { Link, useNavigate } from 'react-router-dom'
 
-const Nav = ({user}) => {
+const Nav = ({user,profile}) => {
   const navigate=useNavigate()
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -15,14 +15,17 @@ const Nav = ({user}) => {
     navigate('/signin')
   }
     console.log(user);
+    console.log(profile);
+    
     
   return (
     <div className='nav'>
-        <h2>INSTA</h2>
+        <Link to={'/'}><h2>INSTA</h2></Link>
         <div className='usrinfo'>
           <h4>{user}</h4>
           <div className="prof">
-            <img src={person_icon} alt="" onClick={toggleDropdown} />
+            <img src={profile} alt="" onClick={toggleDropdown} />
+           
             <div className="profile-dropdown">   
               {isDropdownOpen && (
                 <ul className="dropdown-menu">

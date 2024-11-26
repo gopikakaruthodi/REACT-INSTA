@@ -78,6 +78,20 @@ label {
     border-color: #0056b3;
     outline: none;
 }
+.cntner input[type="file"] {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 0;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+}
+
+.cntner input[type="file"]:focus {
+    border-color: #0056b3;
+    outline: none;
+}
 .gndr{
     width: 70%;
     display: flex;
@@ -113,4 +127,22 @@ button:active {
 #pro{
     width: 40px;
     height: 40px;
+}
+
+.usr-img{
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+}
+
+#pro{
+    width: 70px;
+    height: 70px;
+    margin-bottom: 15px;
+}
+#pro img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
 }

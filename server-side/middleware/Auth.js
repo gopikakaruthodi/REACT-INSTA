@@ -4,8 +4,8 @@ const {verify}=jwt
 
 export default async function Auth(req,res,next){
     try {
-        console.log("middleware");
-        console.log(req.headers.authorization);
+        // console.log("middleware");
+        // console.log(req.headers.authorization);
         const key=req.headers.authorization;
         // console.log(key);
         
@@ -13,9 +13,9 @@ export default async function Auth(req,res,next){
             return res.status(403).send("Unautherized access")
         }
         const token=key.split(" ")[1]
-        console.log(token);
+        // console.log(token);
         const auth=await verify(token,process.env.JWT_KEY)
-        console.log(auth);
+        // console.log(auth);
         req.user=auth
         next() 
     } catch (error) {

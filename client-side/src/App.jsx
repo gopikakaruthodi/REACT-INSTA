@@ -20,7 +20,7 @@ function App() {
     <>
       <div>
         <BrowserRouter>
-        {user&&<Nav user={user} />}
+        {user&&<Nav user={user} profile={profile} />}
         <Routes>
           <Route path='/' element={<Home setUser={setUser} setProfile={setProfile} />}/>
           <Route path='/signup' Component={Signup}/>

@@ -146,14 +146,32 @@ export async function getUser(req,res){
 }
 export async function editUserData(req,res){
     try {
-       const {...userData}=req.body
-       await profileSchema.create({...userData}).then(()=>{
-        res.status(201).send({msg:"Successfully Added"})
-       }).catch((error)=>{
-            console.log(error);
-            res.status(404).send({msg:error})    
-       })
-        
+        const{username,email,profile,bio,gender,phone}=req.body
+        console.log(username,email)
+        const _id=req.user.userId
+        // console.log(_id);
+        const user=await profileSchema.findOne({userID:_id})
+        console.log(user);
+      
+        if(!user){
+            
+            await userSchema.updateOne({_id},{$set:{username,email}})
+            await profileSchema.create({profile,bio,gender,phone,userID:_id}).then(()=>{
+               return res.status(201).send({msg:"Successfully Added"})
+            }).catch((error)=>{
+                console.log(error);
+                res.status(404).send({msg:error})    
+            })
+        }
+        else{
+            await userSchema.updateOne({_id},{$set:{username,email}})
+            await profileSchema.updateOne({userID:_id},{$set:{profile,bio,gender,phone}}).then(()=>{
+               return res.status(201).send({msg:"Successfully Updated"})
+            }).catch((error)=>{
+                console.log(error);
+                res.status(404).send({msg:error})    
+            })
+        }
     } catch (error) {
         console.log(error);
         res.status(404).send({msg:error})    
@@ -176,10 +194,10 @@ export async function getUserData(req,res){
     }
 }
 
-export async function deleteUserData(req,res){
+export async function deleteUser(req,res){
     try {
         const _id=req.params
-        await profileSchema.deleteOne({_id}).then(()=>{
+        await userSchema.deleteOne({_id}).then(()=>{
             res.status(200).send({msg:"Successfully Deleted"})
         })
     } catch (error) {

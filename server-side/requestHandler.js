@@ -197,8 +197,14 @@ export async function getUserData(req,res){
 export async function deleteUser(req,res){
     try {
         const _id=req.params
-        await userSchema.deleteOne({_id}).then(()=>{
-            res.status(200).send({msg:"Successfully Deleted"})
+        await userSchema.deleteOne({_id}).then(async()=>{
+            await profileSchema.deleteOne({userID:_id}).then(()=>{
+                res.status(200).send({msg:"Successfully Deleted"})
+
+            }).catch((error)=>{
+                console.log(error);
+                res.status(404).send({msg:error})
+            })
         })
     } catch (error) {
         console.log(error);
@@ -206,4 +212,16 @@ export async function deleteUser(req,res){
     }
 }
 
+export async function addPost(req,res) {
+    try {
+        console.log("hhh");
+        
+        const{...post}=req.body
+        
+    } catch (error) {
+        console.log(error);
+        
+    }
+    
+}
 

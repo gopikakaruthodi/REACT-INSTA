@@ -28,9 +28,9 @@ const Signin = () => {
       navigate('/')
       
     }
-    else{
+    else if(res.status==404){
       alert("Something went wrong")
-    }
+  }
     
   }
   
@@ -53,11 +53,11 @@ const Signin = () => {
 
       </div>
       <div className="submit-containers">
-       <Link to={"/email"}> <div className="submit">Sign Up</div></Link>
-        <Link ><div className="submit" onClick={handleSubmit} >Sign In</div></Link>
-        <Link to={'/password'}><h4> Forgot password </h4></Link>
+       <Link to={"/email"}> <div className="submit">Register</div></Link>
+        <Link ><div className="submit" onClick={handleSubmit} >Login</div></Link>
 
       </div>
+      <div><Link to={'/password'}><h4 className='head'> Forgot password </h4></Link></div>
      </div>
   )
 }

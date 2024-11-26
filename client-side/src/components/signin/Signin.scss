@@ -65,7 +65,7 @@
 }
 
 .submit-containers{
-    display: grid;
+    display: flex;
     gap: 30px;
     margin: 60px auto;
     align-items: center;
@@ -83,4 +83,9 @@
     font-size: 19px;
     font-weight: 700;
     cursor: pointer;
+}
+
+.head{
+    color: black;
+    font-size: 17px;
 }

@@ -14,6 +14,9 @@ router.route("/edituserdata").post(Auth,rh.editUserData)
 router.route("/getuserdata").get(Auth,rh.getUserData)
 router.route("/deleteuser/:_id").delete(rh.deleteUser)
 
+router.route("/addpost").post(rh.addPost)
+
+
 
 
 

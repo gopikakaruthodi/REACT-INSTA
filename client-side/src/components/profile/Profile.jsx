@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import './Profile.css'
 import person_icon from './person.png'
+import userimg from './image.png'
+
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
@@ -39,13 +41,17 @@ const Profile = () => {
         }
         
     }
+    const logout=()=>{
+        localStorage.removeItem('token')
+        navigate('/signin')
+    }
 
     console.log(usrData);
     
   return (
     <div className="containers">
         <div className="left" id="left">
-        <img src={proBool?proData.profile:person_icon} alt="pro pic" id="profile-" />
+        <img src={proBool?proData.profile:userimg} alt="pro pic" id="profile-" />
             <h2 id="username">{usrData.username}</h2>
             <div className="details">
                 <h5>Email:</h5>
@@ -72,10 +78,15 @@ const Profile = () => {
             <Link to={'/edit'} ><button className='butn1'>{proBool?'Edit':'Create'}</button></Link>
             <button className='butn2' onClick={deleteUser} >Delete</button>
            </div>
-           <button className='logout-btn'>Logout</button>
+           <button className='logout-btn'onClick={logout} >Logout</button>
         </div>
         <div className="right">
-           
+            <button className='newpost'>New Post</button>
+           <div className="cards">
+            <div className="card">
+                <img src='' alt="" />
+            </div>
+           </div>
         </div>
         
     </div>

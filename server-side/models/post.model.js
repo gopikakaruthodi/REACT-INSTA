@@ -3,7 +3,7 @@ import mongoose from "mongoose"
 const postSchema=await mongoose.Schema({
     description:{type:String},
     images:[],
-    postDate:{type:String},
+    postedDate:{type:String},
     postedTime:{type:String},
     userID:{type:String}
 })

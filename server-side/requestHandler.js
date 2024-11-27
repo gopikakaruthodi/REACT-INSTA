@@ -1,5 +1,6 @@
 import userSchema from './models/user.model.js'
 import profileSchema from './models/userdata.model.js'
+import postSchema from './models/post.model.js'
 import bcrypt from 'bcrypt'
 import jwt from "jsonwebtoken"
 import nodemailer from "nodemailer"
@@ -185,7 +186,8 @@ export async function getUserData(req,res){
        const userID=req.user.userId
        const profileData= await profileSchema.findOne({userID})
        const userData= await userSchema.findOne({_id:userID},{username:1,email:1})
-       res.status(200).send({userData,profileData:profileData})  
+       const post=await postSchema.find()
+       res.status(200).send({userData,profileData:profileData,post})
     } catch (error) {
         console.log(error);
         res.status(404).send({msg:error})    
@@ -214,13 +216,29 @@ export async function deleteUser(req,res){
 
 export async function addPost(req,res) {
     try {
-        console.log("hhh");
-        
-        const{...post}=req.body
-        
+        const _id=req.user.userId
+        const{description,postedTime,postedDate,images}=req.body
+        await postSchema.create({description,postedTime,postedDate,userID:_id,images}).then(()=>{
+            res.status(201).send({msg:"Post Created"})
+        }).catch((error)=>{
+            res.status(404).send({msg:error}) 
+        }) 
     } catch (error) {
         console.log(error);
-        
+        res.status(404).send({msg:error}) 
+    }
+    
+}
+
+export async function getPost(req,res) {
+    try {
+        const {_id}=req.params
+        const post=await postSchema.findOne({_id})
+        res.status(200).send(post)
+    } catch (error) {
+        console.log(res);  
+        res.status(404).send({msg:error}) 
+
     }
     
 }

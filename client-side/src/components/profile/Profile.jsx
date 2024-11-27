@@ -12,6 +12,7 @@ const Profile = () => {
     const token=localStorage.getItem("token")
     const[usrData,setUsrData]=useState({})
     const[proData,setProData]=useState({})
+    const[post,setPost]=useState([])
     const[proBool,setProBool]=useState(false)
 
     useEffect(()=>{
@@ -19,11 +20,14 @@ const Profile = () => {
     },[])
     const fetchData= async()=>{
         const res= await axios.get("http://localhost:3001/api/getuserdata",{headers:{"authorization":`Bearer ${token}`}})
-        // console.log(res);
+        console.log(res);
         if(res.status==200){
             setUsrData(res.data.userData)
+
             res.data.profileData?setProData(res.data.profileData):setProData({})
             res.data.profileData?setProBool(true):setProBool(false)
+
+            res.data.post?setPost(res.data.post):setPost([])
         }
     }
     const deleteUser=async()=>{
@@ -46,7 +50,7 @@ const Profile = () => {
         navigate('/signin')
     }
 
-    console.log(usrData);
+    console.log(post);
     
   return (
     <div className="containers">
@@ -81,12 +85,15 @@ const Profile = () => {
            <button className='logout-btn'onClick={logout} >Logout</button>
         </div>
         <div className="right">
-            <button className='newpost'>New Post</button>
-           <div className="cards">
-            <div className="card">
-                <img src='' alt="" />
+            <Link to={'/addpost'} ><button className='newpost'>New Post</button></Link>
+          
+            <div className="cards">
+            {post.map((pst)=> <Link to={`/postdetails/${pst._id}`}>
+                <div className="card">
+                        <img src={pst.images[0]} alt="" />
+                    </div>
+                </Link>)}
             </div>
-           </div>
         </div>
         
     </div>

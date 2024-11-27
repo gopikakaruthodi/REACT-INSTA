@@ -9,6 +9,8 @@ import Home from './components/Home/Home'
 import { useState } from 'react'
 import Profile from './components/profile/Profile'
 import Edit from './components/Edit/Edit'
+import Post from './components/Post/Post'
+import PostDetails from './components/PostDetails/PostDetails'
 
 function App() {
   const [user,setUser]=useState("")
@@ -29,6 +31,8 @@ function App() {
           <Route path='/signin' Component={Signin}/>
           <Route path='/profile' Component={Profile}/>
           <Route path='/edit' Component={Edit}/>
+          <Route path='/addpost' Component={Post}/>
+          <Route path='/postdetails/:_id' Component={PostDetails}/>
         </Routes>
         </BrowserRouter>
       </div>

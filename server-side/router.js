@@ -16,6 +16,7 @@ router.route("/deleteuser/:_id").delete(rh.deleteUser)
 
 router.route("/addpost").post(Auth,rh.addPost)
 router.route("/getpost/:_id").get(rh.getPost)
+router.route("/getallpost").get(rh.getAllPost)
 
 
 

@@ -242,4 +242,15 @@ export async function getPost(req,res) {
     }
     
 }
+export async function getAllPost(req,res) {
+    try {
+        const post=await postSchema.find()
+        res.status(200).send(post)
+    } catch (error) {
+        console.log(res);  
+        res.status(404).send({msg:error}) 
+
+    }
+    
+}
 

@@ -14,9 +14,8 @@ const Nav = ({user,profile}) => {
     localStorage.removeItem('token')
     navigate('/signin')
   }
-    console.log(user);
-    console.log(profile);
-    
+    // console.log(user);
+    // console.log(profile);
     
   return (
     <div className='nav'>

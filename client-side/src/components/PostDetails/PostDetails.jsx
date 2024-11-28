@@ -31,9 +31,9 @@ const PostDetails = () => {
     
   return (
     <div className="post">
-    <div class="viewport">
-      <ul class="list">
-        {images.map((img)=><li class="item"><img src={img} alt="" /></li>)}
+    <div className="viewport">
+      <ul className="list">
+        {images.map((img)=><li className="item"><img src={img} alt="" /></li>)}
         {/* <li class="item">1</li>
         <li class="item">2</li>
         <li class="item">3</li>

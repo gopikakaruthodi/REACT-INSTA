@@ -16,7 +16,7 @@ function App() {
   const [user,setUser]=useState("")
   const [profile,setProfile]=useState("")
   // console.log(`app ${user}`);
-  console.log(`profile ${profile}`);
+  // console.log(`profile ${profile}`);
   
   return (
     <>

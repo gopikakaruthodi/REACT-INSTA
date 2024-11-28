@@ -1,4 +1,5 @@
 import axios from 'axios'
+import heart from './heart.png'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Home.css'
@@ -68,7 +69,7 @@ const Home = ({setUser,setProfile}) => {
             <table >
                 <tbody>
                 <tr>
-                    <td className='img1'><img src="https://i.pinimg.com/564x/a2/d5/24/a2d5243b3e565a07ece2c9808f91282c.jpg"   /></td>
+                    <td className='img1'><img src={heart}/></td>
                     <td className='img2'><img src="https://i.pinimg.com/564x/08/9c/1e/089c1e73b72e371dfe5bb6fb8c02eb96.jpg"  /></td>
                     <td className='img3'><img src="https://i.pinimg.com/564x/71/06/1f/71061f7d75969ebf007ea045e5c7263c.jpg"   /></td>
                 </tr>

@@ -17,14 +17,16 @@
     line-height: 16px; 
     text-align: left;
     margin: 10px 0px;
+    font-family: cursive;
   }
 
 
 .img1 img{
-    width: 22px;
-    height: 20px; 
+    width: 24px;
+    height: 22px; 
     margin-right: 10px;
     object-fit: cover;
+    margin-left: 5px;
 }
 .img2 img{
     width: 21px;

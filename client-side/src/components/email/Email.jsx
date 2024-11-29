@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import './Email.css'
 import email_icon from './email.png'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 
 
 const Email = () => {
+  const navigate= useNavigate()
   const[email,setEmail]=useState("")
 
   const handleChange=(e)=>{
@@ -21,6 +22,7 @@ const Email = () => {
     if(res.status==200){
       localStorage.setItem("email",email)
       alert(res.data.msg)
+      navigate('/signin')
     }
     else{
       alert("Something went wrong...!")

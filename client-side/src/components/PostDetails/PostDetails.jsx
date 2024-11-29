@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import './postdetails.css'
+import './PostDetails.css'
 
 const PostDetails = () => {
     const {_id}=useParams()
@@ -11,6 +11,7 @@ const PostDetails = () => {
 
     useEffect(()=>{
         fetchData()
+        
     },[])
     
     const fetchData=async()=>{

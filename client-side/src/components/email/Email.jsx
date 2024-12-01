@@ -15,18 +15,21 @@ const Email = () => {
     setEmail(e.target.value)
   }
   const handleSubmit=async(e)=>{
-    e.preventDefault()
-    console.log("kk");
-    const res=await axios.post("http://localhost:3001/api/checkemail",{email})
-    // console.log(res);
-    if(res.status==200){
-      localStorage.setItem("email",email)
-      alert(res.data.msg)
-      navigate('/signin')
-    }
-    else{
-      alert("Something went wrong...!")
-    }
+   try {
+      e.preventDefault()
+      console.log("kk");
+      const res=await axios.post("http://localhost:3001/api/checkemail",{email})
+      // console.log(res);
+      if(res.status==200){
+        localStorage.setItem("email",email)
+        alert(res.data.msg)
+        navigate('/signin')
+      }
+    
+   } catch (error) {
+    console.log(error);
+    alert(error.response.data.msg)
+   }
   }
   return (
     <div className="container">

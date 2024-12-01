@@ -18,19 +18,22 @@ const Signin = () => {
   }
   
   const handleSubmit=async(e)=>{
-    e.preventDefault()
+    try {
+      e.preventDefault()
 
-    const res=await axios.post("http://localhost:3001/api/signin",loginData)
-    console.log(res);
-    if(res.status==200){
-      localStorage.setItem("token",res.data.token)
-      alert(res.data.msg)
-      navigate('/')
+      const res=await axios.post("http://localhost:3001/api/signin",loginData)
+      console.log(res);
+      if(res.status==200){
+        localStorage.setItem("token",res.data.token)
+        alert(res.data.msg)
+        navigate('/')
+        
+      }
       
+    } catch (error) {
+      console.log(error);
+      alert(error.response.data.msg)  
     }
-    else if(res.status==404){
-      alert("Something went wrong")
-  }
     
   }
   

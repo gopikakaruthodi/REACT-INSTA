@@ -41,6 +41,7 @@ const Post = () => {
     
 
     const handleSubmit=async(e)=>{
+       try {
         e.preventDefault()
         const res= await axios.post("http://localhost:3001/api/addpost",{description,images,postedTime,postedDate},{headers:{"authorization":`Bearer ${token}`}})
         // console.log(res);
@@ -48,9 +49,11 @@ const Post = () => {
             alert(res.data.msg)
             navigate('/profile')
         }
-        else{
-            alert(res.data.msg)
-        }
+        
+       } catch (error) {
+        console.log(error);
+        alert(error.response.data.msg)
+       }
     }
 
 

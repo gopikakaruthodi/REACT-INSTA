@@ -23,16 +23,9 @@ const Home = ({setUser,setProfile}) => {
                     setProfile(res.data.profile.profile)
                   }
                 }
-                else if(res.status==403){
-                  alert(res.status.msg)
-                  navigate('/signin')
-                  
-                }
-                else{
-                  navigate('/signin')
-                }
              } catch (error) {
                 console.log(error);
+                alert(error.response.data.msg)
                 navigate('/signin')
              }
 
@@ -43,6 +36,7 @@ const Home = ({setUser,setProfile}) => {
           
           }
           const getPost=async()=>{
+           try {
             const res=await axios.get("http://localhost:3001/api/getallpost")
             console.log(res);
             if(res.status==200){
@@ -52,9 +46,14 @@ const Home = ({setUser,setProfile}) => {
               alert(res.data.msg)
             }
             
+           } catch (error) {
+            console.log(error);
+            alert(error.response.data.msg)
+           }
+            
           }
-          console.log(post);
-          {post.map((item)=>console.log(item.description))}
+
+          // console.log(post);
           
   return (
     <>

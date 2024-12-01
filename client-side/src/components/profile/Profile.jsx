@@ -32,15 +32,18 @@ const Profile = () => {
     }
     const deleteUser=async()=>{
         if(confirm("Do you want to delete this user")){
-            const res=await axios.delete(`http://localhost:3001/api/deleteuser/${usrData._id}`)
-            console.log(res);
-            if(res.status==200){
-                localStorage.removeItem('token')
-                alert(res.data.msg)
-                navigate('/signin')
-            }
-            else{
-                alert("Something went wrong")
+            try {
+                const res=await axios.delete(`http://localhost:3001/api/deleteuser/${usrData._id}`)
+                console.log(res);
+                if(res.status==200){
+                    localStorage.removeItem('token')
+                    alert(res.data.msg)
+                    navigate('/signin')
+                }
+                
+            } catch (error) {
+                console.log(error);
+                alert(error.response.data.msg) 
             }
         }
         

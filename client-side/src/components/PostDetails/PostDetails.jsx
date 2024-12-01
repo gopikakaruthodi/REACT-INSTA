@@ -15,6 +15,7 @@ const PostDetails = () => {
     },[])
     
     const fetchData=async()=>{
+       try {
         const res=await axios.get(`http://localhost:3001/api/getpost/${_id}`)
         console.log(res);
         if(res.status==200){
@@ -24,7 +25,12 @@ const PostDetails = () => {
         else{
             alert("Connection Refused")
         }
+     
         
+       } catch (error) {
+        console.log(error);
+        alert(error.response.data.msg) 
+       }   
     }
     console.log(post);
     console.log(images);

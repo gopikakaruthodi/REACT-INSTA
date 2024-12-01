@@ -37,6 +37,7 @@ const Edit = () => {
     setUpdateData((pre)=>({...pre,[e.target.name]:e.target.value}))
  }
  const handleSubmit=async(e)=>{
+   try {
     e.preventDefault()
     const res=await axios.post("http://localhost:3001/api/edituserdata",updateData,{headers:{"authorization":`Bearer ${token}`}})
     console.log(res);
@@ -50,6 +51,11 @@ const Edit = () => {
     else{
       alert("Something went wrong")
     }
+    
+   } catch (error) {
+    console.log(error);
+    alert(error.response.data.msg)
+   }
   
  }
      // profile
